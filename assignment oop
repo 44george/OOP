@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+public class LoginProgram {
+    public static void main(String[] args) {
+        // Define the correct username and password
+        String correctUsername = "admin";
+        String correctPassword = "password123";
+
+        Scanner scanner = new Scanner(System.in);
+        int attempts = 3;
+
+        while (attempts > 0) {
+            System.out.print("Enter username: ");
+            String username = scanner.nextLine();
+
+            System.out.print("Enter password: ");
+            String password = hidePasswordInput(scanner);
+
+            if (username.equals(correctUsername) && password.equals(correctPassword)) {
+                System.out.println("Login successful!");
+                break;
+            } else {
+                System.out.println("Incorrect username or password. Attempts remaining: " + (--attempts));
+            }
+        }
+
+        if (attempts == 0) {
+            System.out.println("Out of attempts. Account locked.");
+        }
+    }
+
+    // Function to hide password input
+    private static String hidePasswordInput(Scanner scanner) {
+        char[] passwordChars = scanner.nextLine().toCharArray();
+        StringBuilder hiddenPassword = new StringBuilder();
+
+        for (char c : passwordChars) {
+            hiddenPassword.append("*");
+        }
+
+        return hiddenPassword.toString();
+    }
+}
+
